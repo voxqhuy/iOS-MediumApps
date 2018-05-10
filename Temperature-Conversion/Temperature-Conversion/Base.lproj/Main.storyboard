@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="afP-I8-try">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Convert-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ConversionViewController" customModule="Temperature_Conversion" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPE-xz-tXb">
+                                <rect key="frame" x="129.5" y="222" width="116.5" height="84"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                <color key="textColor" red="0.88235294117647056" green="0.34509803921568627" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="degrees Fahrenheit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-as-E7g">
+                                <rect key="frame" x="39.5" y="120" width="295.5" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" red="0.88235294117647056" green="0.34509803921568627" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="degrees Celsius" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBk-t6-OJu">
+                                <rect key="frame" x="65" y="314" width="245.5" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" red="0.88235294117647056" green="0.34509803921568627" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is really" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nr-El-KPQ">
+                                <rect key="frame" x="130" y="171" width="114" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v7w-wD-blN">
+                                <rect key="frame" x="108" y="28" width="160" height="84"/>
+                                <color key="textColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad"/>
+                                <connections>
+                                    <action selector="fahrenheitFieldEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="t54-Ng-Utf"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="38b-jA-WME"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7nr-El-KPQ" secondAttribute="trailing" id="0Tv-Wr-jHg"/>
+                            <constraint firstItem="v7w-wD-blN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="0a9-4A-Ue0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JPE-xz-tXb" secondAttribute="trailing" id="3AO-3F-dq8"/>
+                            <constraint firstItem="FtF-as-E7g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="40A-y5-mR9"/>
+                            <constraint firstItem="v7w-wD-blN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CVs-BI-laI"/>
+                            <constraint firstItem="7nr-El-KPQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="J6n-EB-ONV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FtF-as-E7g" secondAttribute="trailing" id="KV6-eY-KSp"/>
+                            <constraint firstItem="v7w-wD-blN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QoE-43-c8B"/>
+                            <constraint firstItem="FtF-as-E7g" firstAttribute="top" secondItem="v7w-wD-blN" secondAttribute="bottom" constant="8" symbolic="YES" id="U1P-gu-xju"/>
+                            <constraint firstItem="7nr-El-KPQ" firstAttribute="centerX" secondItem="JPE-xz-tXb" secondAttribute="centerX" id="Vhn-cI-10e"/>
+                            <constraint firstItem="JPE-xz-tXb" firstAttribute="top" secondItem="7nr-El-KPQ" secondAttribute="bottom" constant="8" symbolic="YES" id="ayf-cW-GFU"/>
+                            <constraint firstItem="FtF-as-E7g" firstAttribute="centerX" secondItem="7nr-El-KPQ" secondAttribute="centerX" id="e6i-GZ-aNp"/>
+                            <constraint firstItem="UBk-t6-OJu" firstAttribute="top" secondItem="JPE-xz-tXb" secondAttribute="bottom" constant="8" symbolic="YES" id="n2a-ib-5m0"/>
+                            <constraint firstItem="v7w-wD-blN" firstAttribute="centerX" secondItem="FtF-as-E7g" secondAttribute="centerX" id="n2v-RZ-KbU"/>
+                            <constraint firstItem="UBk-t6-OJu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="p9z-9D-kGy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UBk-t6-OJu" secondAttribute="trailing" id="wT1-Yv-QPo"/>
+                            <constraint firstItem="JPE-xz-tXb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wxb-Em-mWn"/>
+                            <constraint firstItem="JPE-xz-tXb" firstAttribute="centerX" secondItem="UBk-t6-OJu" secondAttribute="centerX" id="za7-JA-Mhs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="v7w-wD-blN" secondAttribute="trailing" id="zjo-cu-jfr"/>
+                            <constraint firstItem="7nr-El-KPQ" firstAttribute="top" secondItem="FtF-as-E7g" secondAttribute="bottom" constant="8" symbolic="YES" id="zt4-zw-meN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="TOk-sU-4xm" appends="YES" id="Aj0-nK-eex"/>
+                        </connections>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Convert" image="ConvertIcon" id="zUY-YP-YpA"/>
+                    <connections>
+                        <outlet property="celsiusLabel" destination="JPE-xz-tXb" id="T8g-AG-W1p"/>
+                        <outlet property="userInputField" destination="v7w-wD-blN" id="HIi-z0-h2F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="TOk-sU-4xm">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="BYZ-38-t0r" id="Fon-4n-raX"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="876" y="865.81709145427294"/>
+        </scene>
+        <!--Website-->
+        <scene sceneID="7dl-MA-2X1">
+            <objects>
+                <viewController id="QLV-WJ-LfL" customClass="WebViewController" customModule="Temperature_Conversion" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ck3-Lx-Nod">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="utH-Ya-pNK"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Website" image="earth-america-7" selectedImage="earth-america-7" id="7Oc-8R-ND9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="viB-c6-ZUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1708" y="866"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="LqS-Z3-5ml">
+            <objects>
+                <viewController id="uIk-TL-0h5" customClass="MapViewController" customModule="Temperature_Conversion" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" image="MapIcon" id="mH8-iC-Hhz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YwP-Er-slg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="55" y="866"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="3z5-JP-EfL">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="afP-I8-try" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iwd-Pd-u90">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Wl4-g9-pvE"/>
+                        <segue destination="uIk-TL-0h5" kind="relationship" relationship="viewControllers" id="itH-Rl-4dI"/>
+                        <segue destination="QLV-WJ-LfL" kind="relationship" relationship="viewControllers" id="nDz-L7-Vib"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tlx-Ha-qp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="876" y="91.304347826086968"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ConvertIcon" width="48" height="32"/>
+        <image name="MapIcon" width="48" height="32"/>
+        <image name="earth-america-7" width="30" height="30"/>
+    </resources>
+</document>
