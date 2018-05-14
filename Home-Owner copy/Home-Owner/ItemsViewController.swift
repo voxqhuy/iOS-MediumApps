@@ -70,12 +70,16 @@ class ItemsViewController: UITableViewController {
     
     // Calculating the number of rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 1 {   // "No more items!"
+            return 1
+        } else {
             return itemStore.allItems.count
+        }
     }
     
     // the number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 //
 //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -91,38 +95,52 @@ class ItemsViewController: UITableViewController {
     
     // Set different Height for the footer
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1 {
+            return 48
+        } else {
             return 60
+        }
     }
 
     // nth row displays nth entry
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Get a new or recycled ItemCell (check from the pool)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
-
-        // get the item at the row from item store
-        let item = itemStore.allItems[indexPath.row]
-        
-        // Set the text on the cell with the description of the item
-        cell.nameLabel.text = item.name
-        cell.serialNumberLabel.text = item.serialNumber
-        cell.serialNumberLabel.font = UIFont.systemFont(ofSize: 20)
-        let value = item.valueInDollars
-//        if value < 50 {
-//            cell.valueLabel.textColor = UIColor.green
-//        } else {
-//
-//        }
-        cell.valueLabel.textColor = value < 50 ? UIColor.green : UIColor.red
-        cell.valueLabel.text = "$\(value)"
-        cell.valueLabel.font = UIFont.systemFont(ofSize: 20)
-        cell.backgroundColor = UIColor.clear
-        // return the cell to UITableView
-        return cell
+        if indexPath.section == 1 { // "No more items!"
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+            cell.detailTextLabel?.text = "No more items!"
+            return cell
+        } else {
+            // Get a new or recycled ItemCell (check from the pool)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
+            
+            // get the item at the row from item store
+            let item = itemStore.allItems[indexPath.row]
+            
+            // Set the text on the cell with the description of the item
+            cell.nameLabel.text = item.name
+            cell.serialNumberLabel.text = item.serialNumber
+            cell.serialNumberLabel.font = UIFont.systemFont(ofSize: 20)
+            let value = item.valueInDollars
+            cell.valueLabel.textColor = value < 50 ? UIColor.green : UIColor.red
+            cell.valueLabel.text = "$\(value)"
+            cell.valueLabel.font = UIFont.systemFont(ofSize: 20)
+            cell.backgroundColor = UIColor.clear
+            // return the cell to UITableView
+            return cell
+        }
     }
     
     // change the delete button's tittle
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Remove";
+    }
+    
+    // set the editing style (prevent "No more items!" from being deleted
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.section == 1 {
+            return .none
+        } else {
+            return .delete
+        }
     }
     
     // called after a row being editted
@@ -152,14 +170,25 @@ class ItemsViewController: UITableViewController {
         }
     }
     
+    
+//    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//        if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
+//            return sourceIndexPath
+//        }
+//        return proposedDestinationIndexPath
+//    }
+    
+    // prevent moving to different sections
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 1 {
+            return false
+        } else {
+            return true
+        }
+    }
     // called after a row is being moved
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // Update the model
         itemStore.moveItem(from: sourceIndexPath.row, to: destinationIndexPath.row)
-    }
-    
-    // change the footer
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "No more items!"
     }
 }
