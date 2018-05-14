@@ -14,6 +14,19 @@ class ItemsViewController: UITableViewController {
     // An array of items
     var itemStore: ItemStore!
     
+    // MARK: Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Get the height of the status bar
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        
+        let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
+        // set the table view away from the status bar
+        tableView.contentInset = insets
+        tableView.scrollIndicatorInsets = insets
+    }
+    
     // MARK: for UITableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemStore.allItems.count
@@ -21,8 +34,8 @@ class ItemsViewController: UITableViewController {
     
     // nth row displays nth entry
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Create an instance of UITableViewCell, with style 'value1' appearance
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "UITableViewCell")
+        // Get a new or recycled cell (check from the pool)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
         
         // get the item at the row from item store
         let item = itemStore.allItems[indexPath.row]
