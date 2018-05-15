@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dL8-HP-bci">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="f1P-FC-WcE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,16 +11,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="2ln-Ip-0fb">
             <objects>
-                <viewController id="WGE-sV-qxn" sceneMemberID="viewController">
+                <viewController id="WGE-sV-qxn" customClass="DetailViewController" customModule="Home_Owner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EA6-YO-BkT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="f7T-ZT-NKl">
-                                <rect key="frame" x="0.0" y="28" width="375" height="631"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="587"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Yo-wF-9k5">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -36,6 +36,9 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="WGE-sV-qxn" id="bSI-ru-OBO"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -53,6 +56,9 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="WGE-sV-qxn" id="Fub-DH-hvJ"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -70,11 +76,14 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="WGE-sV-qxn" id="U1T-mu-137"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Date Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KaL-Uh-17O">
-                                        <rect key="frame" x="0.0" y="114" width="375" height="517"/>
+                                        <rect key="frame" x="0.0" y="114" width="375" height="473"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -87,6 +96,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="f7T-ZT-NKl" firstAttribute="top" secondItem="GoW-bJ-rjE" secondAttribute="top" constant="8" id="1Rw-G2-hzO"/>
                             <constraint firstItem="GoW-bJ-rjE" firstAttribute="bottom" secondItem="f7T-ZT-NKl" secondAttribute="bottom" constant="8" id="4kY-Sd-KkS"/>
@@ -94,13 +104,27 @@
                             <constraint firstItem="GoW-bJ-rjE" firstAttribute="trailing" secondItem="f7T-ZT-NKl" secondAttribute="trailing" id="kqn-tV-MKh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GoW-bJ-rjE"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="RuI-sT-dhc" appends="YES" id="SJA-7W-oIX"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="KaL-Uh-17O" id="NTc-jH-5Ak"/>
+                        <outlet property="nameField" destination="9KU-B9-SqT" id="0e2-gj-5eY"/>
+                        <outlet property="serialField" destination="PKX-DT-qYY" id="6ER-9M-EEj"/>
+                        <outlet property="valueField" destination="neo-b2-y45" id="J40-Yc-Itc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C9R-Bv-A9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="RuI-sT-dhc">
+                    <connections>
+                        <action selector="backgroundTapped:" destination="WGE-sV-qxn" id="hvL-72-GZB"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1049" y="-4"/>
+            <point key="canvasLocation" x="-111.2" y="-4.0479760119940034"/>
         </scene>
-        <!--Items View Controller-->
+        <!--HomeOwner-->
         <scene sceneID="jlY-jB-zVb">
             <objects>
                 <tableViewController id="dL8-HP-bci" customClass="ItemsViewController" customModule="Home_Owner" customModuleProvider="target" sceneMemberID="viewController">
@@ -177,6 +201,7 @@
                                     <outlet property="nameLabel" destination="5hU-AG-HiV" id="m5Z-hV-zEu"/>
                                     <outlet property="serialNumberLabel" destination="9II-G3-KTg" id="RZD-oh-BAr"/>
                                     <outlet property="valueLabel" destination="dkZ-Lt-c1y" id="wOn-it-Kln"/>
+                                    <segue destination="WGE-sV-qxn" kind="show" identifier="showItem" id="YGa-Lx-gac"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -185,10 +210,31 @@
                             <outlet property="delegate" destination="dL8-HP-bci" id="OW9-wQ-bCd"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="HomeOwner" id="hiF-Rl-IUw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ncg-VW-1dc"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E31-Ld-Qi5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-348" y="-4.0479760119940034"/>
+            <point key="canvasLocation" x="-852" y="-4.0479760119940034"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RxA-eV-nyD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f1P-FC-WcE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5tC-Tk-ayX">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dL8-HP-bci" kind="relationship" relationship="rootViewController" id="pVX-6f-Yt0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B49-Ln-mra" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1791.2" y="-4.0479760119940034"/>
         </scene>
     </scenes>
 </document>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemsViewController: UITableViewController {
+class ItemsViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
@@ -38,6 +38,30 @@ class ItemsViewController: UITableViewController {
         tableView.estimatedRowHeight = 65
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
+    // MARK: segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // If the triggered segue is "ShowItem" segue
+        switch segue.identifier {
+        case "showItem"?:
+            // Figure which row was tapped
+            if let row = tableView.indexPathForSelectedRow?.row {
+                // get the item associated with this row and pass it along
+                let item = itemStore.allItems[row]
+                let detailViewController = segue.destination as! DetailViewController
+                detailViewController.item = item
+            }
+        default:
+            preconditionFailure("Unexpected segue identifier.")
+        }
+    }
+    
+    
     // MARK: Actions
     @IBAction func toggleEditingMode(_ sender: UIButton) {
         // If you are currently in editing mode...
@@ -54,7 +78,7 @@ class ItemsViewController: UITableViewController {
         }
     }
     
-    @IBAction func addNewItem(_ sender: UIButton) {
+    @IBAction func addNewItem(_ sender: UIBarButtonItem) {
         // Create a new item and add it to the store
         let newItem = itemStore.createItem()
         
@@ -67,7 +91,6 @@ class ItemsViewController: UITableViewController {
     }
     
     // MARK: for UITableView
-    
     // Calculating the number of rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {   // "No more items!"
