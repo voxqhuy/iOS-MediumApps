@@ -71,6 +71,15 @@ import UIKit
     }
     
     // MARK: Delegation
+    
+    // when the user is entering input
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == valueField {
+            
+            // decimal separator of the region
+        }
+        return true
+    }
     // when the Return button is pressed on a text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

@@ -75,7 +75,7 @@
                                                 <rect key="frame" x="53" y="0.0" width="322" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="WGE-sV-qxn" id="U1T-mu-137"/>
                                                 </connections>
@@ -132,38 +132,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="OFx-LA-OZ2">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2M-ml-Qda">
-                                    <rect key="frame" x="8" y="15" width="175.5" height="30"/>
-                                    <state key="normal" title="Edit"/>
-                                    <connections>
-                                        <action selector="toggleEditingMode:" destination="dL8-HP-bci" eventType="touchUpInside" id="jsO-Aq-sCy"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9E3-65-Raw">
-                                    <rect key="frame" x="191.5" y="15" width="175.5" height="30"/>
-                                    <state key="normal" title="Add"/>
-                                    <connections>
-                                        <action selector="addNewItem:" destination="dL8-HP-bci" eventType="touchUpInside" id="QnY-jA-ctL"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="9E3-65-Raw" firstAttribute="leading" secondItem="I2M-ml-Qda" secondAttribute="trailing" constant="8" id="5ld-fq-7AC"/>
-                                <constraint firstItem="9E3-65-Raw" firstAttribute="centerY" secondItem="OFx-LA-OZ2" secondAttribute="centerY" id="8IV-Xu-gso"/>
-                                <constraint firstItem="9E3-65-Raw" firstAttribute="width" secondItem="I2M-ml-Qda" secondAttribute="width" id="Cju-yD-Dsh"/>
-                                <constraint firstItem="I2M-ml-Qda" firstAttribute="centerY" secondItem="OFx-LA-OZ2" secondAttribute="centerY" id="WTQ-BN-mZu"/>
-                                <constraint firstItem="I2M-ml-Qda" firstAttribute="leading" secondItem="OFx-LA-OZ2" secondAttribute="leading" constant="8" id="YmZ-cY-qeB"/>
-                                <constraint firstAttribute="trailing" secondItem="9E3-65-Raw" secondAttribute="trailing" constant="8" id="a8O-zg-39N"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="65" id="Bgx-TI-0WP" customClass="ItemCell" customModule="Home_Owner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bgx-TI-0WP" id="yOm-6y-slc">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
@@ -211,7 +182,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="HomeOwner" id="hiF-Rl-IUw">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ncg-VW-1dc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ncg-VW-1dc">
+                            <connections>
+                                <action selector="addNewItem:" destination="dL8-HP-bci" id="URS-Mw-4O4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E31-Ld-Qi5" userLabel="First Responder" sceneMemberID="firstResponder"/>

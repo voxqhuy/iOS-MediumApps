@@ -10,28 +10,20 @@ import UIKit
 
 class ItemsViewController: UITableViewController, UITextFieldDelegate {
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        // navigationItem: the view controller when it is pushed onto the controller
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
+    
     // MARK: Properties
     
-//    var filteredItem: [[Item]] = []
     // An array of items
     var itemStore: ItemStore!
-//    {
-//        didSet {
-//            filteredItem = itemStore.filterItems()
-//        }
-//    }
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Get the height of the status bar
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        
-        let insets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
-        // set the table view away from the status bar
-        tableView.contentInset = insets
-        tableView.scrollIndicatorInsets = insets
         
         // Set row's height. tableView should compute its cell's hights based on constraints
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -58,23 +50,6 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
             }
         default:
             preconditionFailure("Unexpected segue identifier.")
-        }
-    }
-    
-    
-    // MARK: Actions
-    @IBAction func toggleEditingMode(_ sender: UIButton) {
-        // If you are currently in editing mode...
-        if isEditing {
-            // inform the user of the state
-            sender.setTitle("Edit", for: .normal)
-            
-            // Turn off editing mode
-            setEditing(false, animated: true)
-        } else {
-            sender.setTitle("Done", for: .normal)
-            // Enter editing mode
-            setEditing(true, animated: true)
         }
     }
     
