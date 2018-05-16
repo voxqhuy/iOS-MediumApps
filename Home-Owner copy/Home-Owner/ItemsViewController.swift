@@ -17,9 +17,18 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: Properties
-    
     // An array of items
     var itemStore: ItemStore!
+    
+    // a formatter for money
+    let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        // Alwasys have 2 digits after the decimal point
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -119,7 +128,8 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
             cell.serialNumberLabel.font = UIFont.systemFont(ofSize: 20)
             let value = item.valueInDollars
             cell.valueLabel.textColor = value < 50 ? UIColor.green : UIColor.red
-            cell.valueLabel.text = "$\(value)"
+//            valueField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
+            cell.valueLabel.text = numberFormatter.string(from: NSNumber(value: value))
             cell.valueLabel.font = UIFont.systemFont(ofSize: 20)
             cell.backgroundColor = UIColor.clear
             // return the cell to UITableView

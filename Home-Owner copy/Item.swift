@@ -10,7 +10,7 @@ import UIKit
 
 class Item: NSObject {
     var name: String
-    var valueInDollars: Int
+    var valueInDollars: Double
     var serialNumber: String?
     let dateCreated: Date
     
@@ -18,7 +18,7 @@ class Item: NSObject {
     // this lose the free initializer init(). the free init() is usefull when all properties
     // have default values
     // designated initializer must call a designated initializer on its superclass
-    init(name: String, valueInDollars: Int, serialNumber: String?) {
+    init(name: String, valueInDollars: Double, serialNumber: String?) {
         self.name = name
         self.valueInDollars = valueInDollars
         self.serialNumber = serialNumber
@@ -41,7 +41,7 @@ class Item: NSObject {
             let randomNoun = nouns[Int(idx)]
             
             let randomName = "\(randomAdj) \(randomNoun)"
-            let randomVal = Int(arc4random_uniform(100))
+            let randomVal = Double(arc4random_uniform(100))
             let randomSerialNumber = UUID().uuidString.components(separatedBy: "-").first!
             
             self.init(name: randomName,

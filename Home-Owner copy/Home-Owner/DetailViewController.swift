@@ -64,7 +64,7 @@ import UIKit
         item.serialNumber = serialField.text
         if let valueText = valueField.text,
             let value = numberFormatter.number(from: valueText) {
-            item.valueInDollars = value.intValue
+            item.valueInDollars = value.doubleValue
         } else {
             item.valueInDollars = 0
         }
@@ -76,7 +76,23 @@ import UIKit
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == valueField {
             
+            // avoid enter text in money value
+            if string.rangeOfCharacter(from: NSCharacterSet.letters) != nil {
+                return false
+            }
+            
             // decimal separator of the region
+            let currentLocale = Locale.current
+            let decimalSeparator = currentLocale.decimalSeparator ?? "."
+            
+            let existingTextHasDecimalSeparator = textField.text?.range(of: decimalSeparator)
+            let replacementTextDecimalSeparator = string.range(of: decimalSeparator)
+            
+            if existingTextHasDecimalSeparator != nil, replacementTextDecimalSeparator != nil {
+                return false
+            } else {
+                return true
+            }
         }
         return true
     }
