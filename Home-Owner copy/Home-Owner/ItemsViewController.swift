@@ -133,7 +133,7 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
             cell.serialNumberLabel.text = item.serialNumber
             cell.serialNumberLabel.font = UIFont.systemFont(ofSize: 20)
             let value = item.valueInDollars
-            cell.valueLabel.textColor = value < 50 ? UIColor.green : UIColor.red
+            cell.valueLabel.textColor = item.textColor 
 //            valueField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
             cell.valueLabel.text = numberFormatter.string(from: NSNumber(value: value))
             cell.valueLabel.font = UIFont.systemFont(ofSize: 20)

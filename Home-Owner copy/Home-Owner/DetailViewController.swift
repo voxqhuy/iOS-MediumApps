@@ -125,6 +125,10 @@ import UIKit
     // when the Return button is pressed on a text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        // tigger the changes for the tittle when the return is pressed 
+        if textField == nameField {
+            navigationItem.title = textField.text
+        }
         return true
     }
     

@@ -13,6 +13,7 @@ class Item: NSObject, NSCoding {
     var valueInDollars: Double
     var serialNumber: String?
     var dateCreated: Date
+    var textColor: UIColor
     // key in the cache
     let itemKey: String
     
@@ -25,6 +26,7 @@ class Item: NSObject, NSCoding {
         self.valueInDollars = valueInDollars
         self.serialNumber = serialNumber
         self.dateCreated = Date()
+        self.textColor = valueInDollars > 50.0 ? UIColor.red : UIColor.green
         self.itemKey = UUID().uuidString
         
         super.init()
@@ -63,6 +65,7 @@ class Item: NSObject, NSCoding {
         aCoder.encode(itemKey, forKey: "itemKey")
         aCoder.encode(serialNumber, forKey: "serialNumber")
         aCoder.encode(valueInDollars, forKey: "valueInDollars")
+        aCoder.encode(textColor, forKey: "textColor")
     }
     
     // decode
@@ -72,6 +75,7 @@ class Item: NSObject, NSCoding {
         itemKey = aDecoder.decodeObject(forKey: "itemKey") as! String
         serialNumber = aDecoder.decodeObject(forKey: "serialNumber") as! String?
         valueInDollars = aDecoder.decodeDouble(forKey: "valueInDollars")
+        textColor = aDecoder.decodeObject(forKey: "textColor") as! UIColor
         
         super.init()
     }
