@@ -15,7 +15,7 @@ import UIKit
     @IBOutlet weak var serialField: customTextField!
     @IBOutlet weak var valueField: customTextField!
     @IBOutlet weak var dateLabel: customTextField!
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var  imageView: UIImageView!
     @IBOutlet var removeImgBtn: UIButton!
     
     // MARK: - Properties
