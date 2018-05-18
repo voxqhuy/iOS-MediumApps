@@ -7,12 +7,14 @@
 //
 
 import UIKit
-
-class Item: NSObject {
+// conform to NSCoding for archiving purpose
+class Item: NSObject, NSCoding {
     var name: String
     var valueInDollars: Double
     var serialNumber: String?
-    let dateCreated: Date
+    var dateCreated: Date
+    // key in the cache
+    let itemKey: String
     
     // designated initializer is required
     // this lose the free initializer init(). the free init() is usefull when all properties
@@ -23,6 +25,7 @@ class Item: NSObject {
         self.valueInDollars = valueInDollars
         self.serialNumber = serialNumber
         self.dateCreated = Date()
+        self.itemKey = UUID().uuidString
         
         super.init()
     }
@@ -51,5 +54,25 @@ class Item: NSObject {
         } else {
             self.init(name: "", valueInDollars: 0, serialNumber: nil)
         }
+    }
+    
+    // encode all names and all properties
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(dateCreated, forKey: "dateCreated")
+        aCoder.encode(itemKey, forKey: "itemKey")
+        aCoder.encode(serialNumber, forKey: "serialNumber")
+        aCoder.encode(valueInDollars, forKey: "valueInDollars")
+    }
+    
+    // decode
+    required init?(coder aDecoder: NSCoder) {
+        name = aDecoder.decodeObject(forKey: "name") as! String
+        dateCreated = aDecoder.decodeObject(forKey: "dateCreated") as! Date
+        itemKey = aDecoder.decodeObject(forKey: "itemKey") as! String
+        serialNumber = aDecoder.decodeObject(forKey: "serialNumber") as! String?
+        valueInDollars = aDecoder.decodeDouble(forKey: "valueInDollars")
+        
+        super.init()
     }
 }

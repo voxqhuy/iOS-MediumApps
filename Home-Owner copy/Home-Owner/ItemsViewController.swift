@@ -17,8 +17,8 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: Properties
-    // An array of items
     var itemStore: ItemStore!
+    var imageStore: ImageStore!
     
     // a formatter for money
     let numberFormatter: NumberFormatter = {
@@ -56,6 +56,7 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
                 let item = itemStore.allItems[row]
                 let detailViewController = segue.destination as! DetailViewController
                 detailViewController.item = item
+                detailViewController.imageStore = imageStore
             }
         default:
             preconditionFailure("Unexpected segue identifier.")
@@ -73,6 +74,11 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
         // Insert a new item into the last row
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
+    
+    // MARK: Actions
+    
+    
+
     
     // MARK: for UITableView
     // Calculating the number of rows
@@ -168,6 +174,9 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
                 // Remove the item from the store
                 self.itemStore.removeItem(item)
                 
+                // Remove the item's image from the image store
+                self.imageStore.deleteImage(forKey: item.itemKey)
+                
                 // remove the row from the table view
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
             })
@@ -177,14 +186,6 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
             present(ac, animated: true, completion: nil)
         }
     }
-    
-    
-//    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-//        if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
-//            return sourceIndexPath
-//        }
-//        return proposedDestinationIndexPath
-//    }
     
     // prevent moving to different sections
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

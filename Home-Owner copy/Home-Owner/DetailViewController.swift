@@ -8,20 +8,24 @@
 
 import UIKit
  
- class DetailViewController: UIViewController, UITextFieldDelegate {
+ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: Outlets
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var serialField: UITextField!
-    @IBOutlet weak var valueField: UITextField!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var nameField: customTextField!
+    @IBOutlet weak var serialField: customTextField!
+    @IBOutlet weak var valueField: customTextField!
+    @IBOutlet weak var dateLabel: customTextField!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var removeImgBtn: UIButton!
     
-    // MARK: Properties
+    // MARK: - Properties
     var item: Item! {
         didSet {
             navigationItem.title = item.name
         }
     }
+    
+    var imageStore: ImageStore!
     
     // formatter for money
     let numberFormatter: NumberFormatter = {
@@ -40,7 +44,7 @@ import UIKit
         return formatter
     }()
     
-    // lifecycle
+    // MARK: - View life cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -51,6 +55,17 @@ import UIKit
         serialField.text = item.serialNumber
         valueField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
         dateLabel.text = dateFormatter.string(from: item.dateCreated)
+        
+        // Get the item key
+        let key = item.itemKey
+        
+        // If there is an associated image with the item, display it
+        if let image = imageStore.image(forKey: key) {
+            imageView.image = image
+            removeImgBtn.isEnabled = true
+        } else {
+            removeImgBtn.isEnabled = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,7 +85,18 @@ import UIKit
         }
     }
     
-    // MARK: Delegation
+    // MARK: Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "changeDate":
+            let dateCreatedViewController = segue.destination as! DateCreatedViewController
+            dateCreatedViewController.item = item
+        default:
+            preconditionFailure("Unexpected segue identifier")
+        }
+    }
+    
+    // MARK: - Delegation
     
     // when the user is entering input
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -102,10 +128,68 @@ import UIKit
         return true
     }
     
-    // MARK: Actions
+    // after the user took a picture or chose an image
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // Get picked image from info dictionary
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        
+        // Store the image in the ImageStore for the item's key
+        imageStore.setImage(image, forKey: item.itemKey)
+        
+        // Put the image on the screen in the image view
+        imageView.image = image
+        
+        // Take image picker off the screen
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Actions
     @IBAction func backgroundTapped(_ sender: Any) {
         // clear first responder when the users tap on the screen
         view.endEditing(true)
+    }
+    
+    @IBAction func takePicture(_ sender: Any) {
+        
+        let imagePicker = UIImagePickerController()
+        
+        // set up the image picker
+        // if the device has a camera, take a picture; otherwise, choose one from the library
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+            
+            // creating a crosshair
+            let overlayView = UIView(frame: imagePicker.cameraOverlayView!.frame)
+            
+            let crosshairLabel = UILabel()
+            crosshairLabel.text = "+"
+            crosshairLabel.font = UIFont.systemFont(ofSize: 50)
+            crosshairLabel.translatesAutoresizingMaskIntoConstraints = false
+            overlayView.addSubview(crosshairLabel)
+            // place the crosshair in the middle
+            crosshairLabel.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor)
+            crosshairLabel.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor)
+            
+            // To avoid blocking the underneath default camera controls
+            overlayView.isUserInteractionEnabled = false
+            
+            imagePicker.cameraOverlayView = overlayView
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
+        // Display the image picker on the screen modally
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func removeImage(_ sender: UIButton) {
+        imageStore.deleteImage(forKey: item.itemKey)
+        imageView.image = nil
+        removeImgBtn.isEnabled = false
     }
     
  }
