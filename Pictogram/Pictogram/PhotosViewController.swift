@@ -13,10 +13,22 @@ class PhotosViewController: UIViewController {
     // MARK: - Properties
     // MARK: Outlets
     @IBOutlet var imageView: UIImageView!
+    var photoStore: PhotoStore!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // kick off the web service
+        photoStore.fetchInterestingPhotos {
+            (photosResult) -> Void in
+            
+            switch photosResult {
+            case let .success(photos):
+                print("Successfully found \(photos.count) photos.")
+            case let .failure(error):
+                print("Error fetching interesting photos: \(error)")
+            }
+        }
         // Do any additional setup after loading the view.
     }
 
