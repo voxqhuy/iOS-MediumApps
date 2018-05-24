@@ -25,6 +25,9 @@ class PhotosViewController: UIViewController {
             switch photosResult {
             case let .success(photos):
                 print("Successfully found \(photos.count) photos.")
+                if let firstPhoto = photos.first {
+                    self.updateImageView(for: firstPhoto)
+                }
             case let .failure(error):
                 print("Error fetching interesting photos: \(error)")
             }
@@ -38,14 +41,17 @@ class PhotosViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - Private methods
+    func updateImageView(for photo: Photo) {
+        photoStore.fetchImage(for: photo) {
+            (imageResult) -> Void in
+            
+            switch imageResult {
+            case let .success(image):
+                self.imageView.image = image
+            case let .failure(error):
+                print("Error downloading image: \(error)")
+            }
+        }
     }
-    */
-
 }
