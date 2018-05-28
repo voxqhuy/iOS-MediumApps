@@ -20,6 +20,7 @@
 		8FE1F94F20B647B8004ECD7B /* PictogramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1F94E20B647B8004ECD7B /* PictogramTests.swift */; };
 		8FE1F95A20B647B8004ECD7B /* PictogramUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1F95920B647B8004ECD7B /* PictogramUITests.swift */; };
 		8FE1F96A20B64C0E004ECD7B /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1F96920B64C0E004ECD7B /* FlickrAPI.swift */; };
+		8FF232C420BCC7FD00EE841D /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF232C320BCC7FD00EE841D /* ImageStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		8FE1F95920B647B8004ECD7B /* PictogramUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictogramUITests.swift; sourceTree = "<group>"; };
 		8FE1F95B20B647B8004ECD7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FE1F96920B64C0E004ECD7B /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
+		8FF232C320BCC7FD00EE841D /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +109,9 @@
 		8F5569D420BC73B400CF535E /* Custom Class */ = {
 			isa = PBXGroup;
 			children = (
+				8FD850A520B730370049B081 /* Photo.swift */,
 				8F5569D220BC739100CF535E /* PhotoCollectionViewCell.swift */,
+				8FF232C320BCC7FD00EE841D /* ImageStore.swift */,
 			);
 			name = "Custom Class";
 			path = "New Group";
@@ -116,9 +120,8 @@
 		8FD850A720B7304B0049B081 /* Web Service */ = {
 			isa = PBXGroup;
 			children = (
-				8FE1F96920B64C0E004ECD7B /* FlickrAPI.swift */,
-				8FD850A520B730370049B081 /* Photo.swift */,
 				8FD850A320B71B640049B081 /* PhotoStore.swift */,
+				8FE1F96920B64C0E004ECD7B /* FlickrAPI.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				8F5569D620BC78CE00CF535E /* RecentPhotosViewController.swift in Sources */,
 				8FE1F96A20B64C0E004ECD7B /* FlickrAPI.swift in Sources */,
 				8FD850A420B71B640049B081 /* PhotoStore.swift in Sources */,
+				8FF232C420BCC7FD00EE841D /* ImageStore.swift in Sources */,
 				8F5569CF20BC60AC00CF535E /* InterestingPhotosViewController.swift in Sources */,
 				8F5569C920BC55F000CF535E /* InterestingPhotoDataSource.swift in Sources */,
 				8F5569D120BC682A00CF535E /* RecentPhotoDataSource.swift in Sources */,

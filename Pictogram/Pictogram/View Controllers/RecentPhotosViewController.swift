@@ -21,6 +21,7 @@ class RecentPhotosViewController: UIViewController {
         super.viewDidLoad()
         
         recentCollectionView.dataSource = recentDataSource
+        recentCollectionView.delegate = self
         
         // Kick off the web service
         photoStore.fetchRecentPhotos() {
@@ -36,18 +37,28 @@ class RecentPhotosViewController: UIViewController {
             self.recentCollectionView.reloadSections(IndexSet(integer: 0))
         }
     }
-    
-    // MARK: - Private methods
-    //    func updateImageView(for photo: Photo) {
-    //        photoStore.fetchImage(for: photo) {
-    //            (imageResult) in
-    //
-    //            switch imageResult {
-    //            case let .success(image):
-    //                    self.imageView.image = image
-    //            case let .failure(error):
-    //                print("Error downloading iamge: \(error)")
-    //            }
-    //        }
-    //    }
+}
+
+extension RecentPhotosViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let photo = recentDataSource.photos[indexPath.row]
+        
+        photoStore.fetchImage(for: photo) {
+            (result) in
+            
+            // The index path for the photo might have been changed between
+            // the time request started and finished, just find the most recent
+            // index path
+            guard let photoIndex = self.recentDataSource.photos.index(of: photo),
+                case let .success(image) = result else {
+                    return
+            }
+            
+            // The request finishes, update the cell if it is still visible
+            let photoIndexPath = IndexPath(item: photoIndex, section: 0)
+            if let cell = self.recentCollectionView.cellForItem(at: photoIndexPath) as? PhotoCollectionViewCell {
+                cell.update(with: image)
+            }
+        }
+    }
 }

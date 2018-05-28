@@ -32,6 +32,7 @@ extension PhotoCollectionViewCell {
 
 // MARK: - Helpers
 extension PhotoCollectionViewCell {
+    
     func update(with image: UIImage?) {
         if let imageToDisplay = image {
             spinner.stopAnimating()
