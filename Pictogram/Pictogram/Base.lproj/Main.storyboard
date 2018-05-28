@@ -10,35 +10,54 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Pictogram-->
+        <!--Interesting-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PhotosViewController" customModule="Pictogram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Interesting" customClass="InterestingPhotosViewController" customModule="Pictogram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ana-1q-GbZ">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n68-n1-53D">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="BYR-Gr-G8N">
+                                    <size key="itemSize" width="90" height="90"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="2" minY="2" maxX="2" maxY="2"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="InterestingCollectionViewCell" id="ZmA-AX-XwG">
+                                        <rect key="frame" x="2" y="2" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ana-1q-GbZ" secondAttribute="bottom" id="B2Y-BP-Yhw"/>
-                            <constraint firstItem="Ana-1q-GbZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="K0w-ou-4s3"/>
-                            <constraint firstItem="Ana-1q-GbZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="dEy-G3-Svj"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ana-1q-GbZ" secondAttribute="trailing" id="dTb-16-Fy2"/>
+                            <constraint firstAttribute="trailing" secondItem="n68-n1-53D" secondAttribute="trailing" id="GM3-Vb-UyH"/>
+                            <constraint firstAttribute="bottom" secondItem="n68-n1-53D" secondAttribute="bottom" id="Lk3-TT-STg"/>
+                            <constraint firstItem="n68-n1-53D" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="hh5-Tl-v6Y"/>
+                            <constraint firstItem="n68-n1-53D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kS1-Ey-Lxq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pictogram" id="s8S-Ax-2c0"/>
+                    <tabBarItem key="tabBarItem" title="Interesting" image="icons8-three-leaf-clover-100" id="gcM-zo-Z1i"/>
+                    <navigationItem key="navigationItem" title="Interesting Photos" id="s8S-Ax-2c0"/>
                     <connections>
-                        <outlet property="imageView" destination="Ana-1q-GbZ" id="BHu-Uf-ELk"/>
+                        <outlet property="interestingCollectionView" destination="n68-n1-53D" id="I4n-V3-haA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="876" y="-581"/>
+            <point key="canvasLocation" x="530" y="186"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JfU-kM-eoC">
@@ -51,12 +70,84 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="faH-UA-H2l"/>
+                        <segue destination="ggM-9m-tLF" kind="relationship" relationship="rootViewController" id="faH-UA-H2l"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XCw-9r-QpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="-580.65967016491754"/>
         </scene>
+        <!--Recent-->
+        <scene sceneID="yfS-wx-5KD">
+            <objects>
+                <viewController id="S8p-lQ-M5K" customClass="RecentPhotosController" customModule="Pictogram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YLe-JJ-IGv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="whI-rL-7w7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="I0E-SV-55s">
+                                    <size key="itemSize" width="90" height="90"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="2" minY="2" maxX="2" maxY="2"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecentCollectionViewCell" id="OMi-IY-6VA">
+                                        <rect key="frame" x="2" y="2" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="whI-rL-7w7" secondAttribute="bottom" id="Nup-Pc-AJw"/>
+                            <constraint firstItem="whI-rL-7w7" firstAttribute="top" secondItem="YLe-JJ-IGv" secondAttribute="top" id="NvE-2G-IUD"/>
+                            <constraint firstAttribute="trailing" secondItem="whI-rL-7w7" secondAttribute="trailing" id="bbX-bA-Vs7"/>
+                            <constraint firstItem="whI-rL-7w7" firstAttribute="leading" secondItem="YLe-JJ-IGv" secondAttribute="leading" id="mUe-Lz-UzM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hVT-Sx-fBn"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Recent" image="icons8-time-machine-100" id="FR9-HQ-83L"/>
+                    <connections>
+                        <outlet property="recentCollectionView" destination="whI-rL-7w7" id="Ftr-XL-zSZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gyB-eP-K3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1295" y="186"/>
+        </scene>
+        <!--Pictogram-->
+        <scene sceneID="rzk-LN-U9Z">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ggM-9m-tLF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Pictogram" id="Dvq-6H-elA"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0op-jz-Z2f">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="9DW-f7-vWJ"/>
+                        <segue destination="S8p-lQ-M5K" kind="relationship" relationship="viewControllers" id="VT6-Ru-5Nq"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="glb-lq-88P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="876" y="-581.55922038980509"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="icons8-three-leaf-clover-100" width="33" height="33"/>
+        <image name="icons8-time-machine-100" width="33" height="33"/>
+    </resources>
 </document>

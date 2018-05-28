@@ -14,14 +14,18 @@ enum FlickrError: Error {
 
 enum Method: String {
     case interestingPhotos = "flickr.interestingness.getList"
+    case recentPhotos = "flickr.photos.getRecent"
 }
 struct FlickrAPI {
     
     // MAKR: - Properties
     private static let baseURLString = "https://api.flickr.com/services/rest"
     private static let apiKey = "a6d819499131071f158fd740860a5a88"
-    static var interestingPhtosURL: URL {
+    static var interestingPhotosURL: URL {
         return flickrURL(method: .interestingPhotos, paramenters: ["extras": "url_h, date_taken"])
+    }
+    static var recentPhotosURL: URL {
+        return flickrURL(method: .recentPhotos, paramenters: ["extras": "url_h, date_taken"])
     }
     
     private static let dateFormatter: DateFormatter = {
@@ -66,7 +70,7 @@ struct FlickrAPI {
     static func photos(fromJSON data: Data) -> PhotosResult {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-            
+            print(jsonObject)
             guard
                 let jsonDictionary = jsonObject as? [AnyHashable:Any],
                 let photos = jsonDictionary["photos"] as? [String:Any],
@@ -103,7 +107,8 @@ struct FlickrAPI {
             let remoteURL = URL(string: photoURLString),
             let photoID = json["id"] as? String,
             let dateString = json["datetaken"] as? String,
-            let dateTaken = dateFormatter.date(from: dateString) else {
+            let dateTaken = dateFormatter.date(from: dateString)
+            else {
             // Dont have enough info to construct a photo
             return nil
         }
