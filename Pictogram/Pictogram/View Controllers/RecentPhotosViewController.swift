@@ -1,5 +1,5 @@
 //
-//  recentPhotosController.swift
+//  RecentPhotosViewController.swift
 //  Pictogram
 //
 //  Created by Vo Huy on 5/25/18.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class RecentPhotosController: UIViewController {
-
+class RecentPhotosViewController: UIViewController {
+    
     // MARK: - Properties
     var photoStore: PhotoStore!
     let recentDataSource = RecentPhotoDataSource()
@@ -21,7 +21,7 @@ class RecentPhotosController: UIViewController {
         super.viewDidLoad()
         
         recentCollectionView.dataSource = recentDataSource
-
+        
         // Kick off the web service
         photoStore.fetchRecentPhotos() {
             (photosResult) in
@@ -36,18 +36,18 @@ class RecentPhotosController: UIViewController {
             self.recentCollectionView.reloadSections(IndexSet(integer: 0))
         }
     }
-
+    
     // MARK: - Private methods
-//    func updateImageView(for photo: Photo) {
-//        photoStore.fetchImage(for: photo) {
-//            (imageResult) in
-//
-//            switch imageResult {
-//            case let .success(image):
-//                    self.imageView.image = image
-//            case let .failure(error):
-//                print("Error downloading iamge: \(error)")
-//            }
-//        }
-//    }
+    //    func updateImageView(for photo: Photo) {
+    //        photoStore.fetchImage(for: photo) {
+    //            (imageResult) in
+    //
+    //            switch imageResult {
+    //            case let .success(image):
+    //                    self.imageView.image = image
+    //            case let .failure(error):
+    //                print("Error downloading iamge: \(error)")
+    //            }
+    //        }
+    //    }
 }

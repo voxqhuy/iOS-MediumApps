@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = rootViewController.topViewController as! UITabBarController
         let photosViewController = tabBarController.viewControllers![0] as! InterestingPhotosViewController
         photosViewController.photoStore = PhotoStore()
-        let recentPhotosController = tabBarController.viewControllers![1] as! RecentPhotosController
+        let recentPhotosController = tabBarController.viewControllers![1] as! RecentPhotosViewController
         recentPhotosController.photoStore = PhotoStore()
         
         return true
