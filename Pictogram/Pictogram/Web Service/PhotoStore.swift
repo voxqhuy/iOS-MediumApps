@@ -25,6 +25,9 @@ enum PhotosResult {
 }
 
 class PhotoStore {
+    
+    let imageStore = ImageStore()
+    
     // @escaping = the closure might not get called immediately within the method
     // this case it will call it when the web service request completes
     func fetchInterestingPhotos(completion: @escaping (PhotosResult) -> Void) {
@@ -65,9 +68,22 @@ class PhotoStore {
         guard let jsonData = data else { return .failure(error!) }
         return FlickrAPI.photos(fromJSON: jsonData)
     }
-    
+}
+
+// Process image data
+extension PhotoStore {
     // download image data
     func fetchImage(for photo: Photo, completion: @escaping (ImageResult) -> Void) {
+        
+        let photoKey = photo.photoID
+        // Check if it is in the cache
+        if let image = imageStore.getImage(forKey: photoKey) {
+            // The main thread
+            OperationQueue.main.addOperation {
+                completion(.success(image))
+            }
+            return
+        }
         
         let photoURL = photo.remoteURL
         let request = URLRequest(url: photoURL)
@@ -81,6 +97,12 @@ class PhotoStore {
             }
             
             let result = self.processImageRequest(data: data, error: error)
+            
+            // if the image is valid, save it to the filesystem
+            if case let .success(image) = result {
+                self.imageStore.setImage(image, forKey: photoKey)
+            }
+            
             // the main thread
             OperationQueue.main.addOperation {
                 completion(result)
