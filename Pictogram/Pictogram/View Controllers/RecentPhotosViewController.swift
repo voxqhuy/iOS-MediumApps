@@ -37,6 +37,22 @@ class RecentPhotosViewController: UIViewController {
             self.recentCollectionView.reloadSections(IndexSet(integer: 0))
         }
     }
+    
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showRecentImage"?:
+            if let selectedIndexPath = recentCollectionView.indexPathsForSelectedItems?.first {
+                let photo = recentDataSource.photos[selectedIndexPath.row]
+                
+                let destinationVC = segue.destination as! PhotoInfoViewController
+                destinationVC.photo = photo
+                destinationVC.store = photoStore
+            }
+        default:
+            print("Unexpected segue identifier")
+        }
+    }
 }
 
 extension RecentPhotosViewController: UICollectionViewDelegate {
@@ -60,5 +76,20 @@ extension RecentPhotosViewController: UICollectionViewDelegate {
                 cell.update(with: image)
             }
         }
+    }
+}
+
+// The UI
+extension RecentPhotosViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let collectionViewWidth = recentCollectionView.bounds.size.width
+        let numberOfItemsPerRow: CGFloat = 4
+        let itemWidth = collectionViewWidth / numberOfItemsPerRow
+        
+        return CGSize(width: itemWidth, height: itemWidth)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        recentCollectionView.reloadData()
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 enum FlickrError: Error {
     case invalidJSONData
@@ -67,7 +68,7 @@ struct FlickrAPI {
     }
     
     // a method that convert the data into the basic objects
-    static func photos(fromJSON data: Data) -> PhotosResult {
+    static func photos(fromJSON data: Data, into context: NSManagedObjectContext) -> PhotosResult {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
             print(jsonObject)
@@ -80,7 +81,7 @@ struct FlickrAPI {
             }
             var finalPhotos = [Photo]()
             for photoJSON in photosArray {
-                if let photo = photo(fromJSON: photoJSON) {
+                if let photo = photo(fromJSON: photoJSON, into: context) {
                     finalPhotos.append(photo)
                 }
             }
@@ -99,7 +100,8 @@ struct FlickrAPI {
     }
     
     // parse a JSON dictionary into Photo instance
-    private static func photo(fromJSON json: [String: Any]) -> Photo? {
+    private static func photo(fromJSON json: [String: Any],
+                              into context: NSManagedObjectContext) -> Photo? {
         guard
             
             let title = json["title"] as? String,
@@ -112,6 +114,16 @@ struct FlickrAPI {
             // Dont have enough info to construct a photo
             return nil
         }
-        return Photo(title: title, remoteURL: remoteURL, photoID: photoID, dateTaken: dateTaken)
+        // insert new photo to the context
+        var photo: Photo!
+        // Synchronously performs a given block on the context's queue
+        context.performAndWait {
+            photo = Photo(context: context)
+            photo.title = title
+            photo.photoID = photoID
+            photo.remoteURL = remoteURL as NSURL
+            photo.dateTaken = dateTaken as NSDate
+        }
+        return photo
     }
 }

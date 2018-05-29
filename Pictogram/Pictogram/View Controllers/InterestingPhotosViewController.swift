@@ -38,6 +38,22 @@ class InterestingPhotosViewController: UIViewController {
         }
     }
     
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showInterestingImage"?:
+            if let selectedIndexPath = interestingCollectionView.indexPathsForSelectedItems?.first {
+                let photo = interestingDataSource.photos[selectedIndexPath.row]
+                
+                let destinationVC = segue.destination as! PhotoInfoViewController
+                destinationVC.photo = photo
+                destinationVC.store = photoStore
+            }
+        default:
+            preconditionFailure("Unexpected segue identifier")
+        }
+    }
+    
     
     // MARK: - Private methods
 
@@ -70,3 +86,20 @@ extension InterestingPhotosViewController: UICollectionViewDelegate {
         }
     }
 }
+
+// The UI
+extension InterestingPhotosViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let collectionViewWidth = interestingCollectionView.bounds.size.width
+        let numberOfItemsPerRow: CGFloat = 4
+        let itemWidth = collectionViewWidth / numberOfItemsPerRow
+        
+        return CGSize(width: itemWidth, height: itemWidth)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        interestingCollectionView.reloadData()
+    }
+}
+
+

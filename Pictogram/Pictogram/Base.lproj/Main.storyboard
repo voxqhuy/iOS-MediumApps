@@ -21,25 +21,22 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n68-n1-53D">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="BYR-Gr-G8N">
-                                    <size key="itemSize" width="91" height="91"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="BYR-Gr-G8N">
+                                    <size key="itemSize" width="0.0" height="0.0"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="1" minY="1" maxX="1" maxY="1"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="InterestingCollectionViewCell" id="ZmA-AX-XwG" customClass="PhotoCollectionViewCell" customModule="Pictogram" customModuleProvider="target">
-                                        <rect key="frame" x="1" y="1" width="91" height="91"/>
+                                        <rect key="frame" x="187.5" y="0.0" width="0.0" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rmu-Uo-XKf">
-                                                    <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
-                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rmu-Uo-XKf"/>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="xFi-mU-L8g">
-                                                    <rect key="frame" x="35" y="35.5" width="20" height="20"/>
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                         </view>
@@ -55,6 +52,7 @@
                                         <connections>
                                             <outlet property="imageView" destination="Rmu-Uo-XKf" id="k68-B1-0qH"/>
                                             <outlet property="spinner" destination="xFi-mU-L8g" id="A4D-Dh-qwq"/>
+                                            <segue destination="HcH-Qg-N3j" kind="show" identifier="showInterestingImage" id="jvF-jK-kmR"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -73,7 +71,6 @@
                     <navigationItem key="navigationItem" title="Interesting Photos" id="s8S-Ax-2c0"/>
                     <connections>
                         <outlet property="interestingCollectionView" destination="n68-n1-53D" id="I4n-V3-haA"/>
-                        <segue destination="HcH-Qg-N3j" kind="show" identifier="showInterestingImage" id="hWX-h1-PqQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -138,25 +135,22 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="whI-rL-7w7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="I0E-SV-55s">
-                                    <size key="itemSize" width="91" height="91"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="I0E-SV-55s">
+                                    <size key="itemSize" width="0.0" height="0.0"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="1" minY="1" maxX="1" maxY="1"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecentCollectionViewCell" id="OMi-IY-6VA" customClass="PhotoCollectionViewCell" customModule="Pictogram" customModuleProvider="target">
-                                        <rect key="frame" x="1" y="1" width="91" height="91"/>
+                                        <rect key="frame" x="187.5" y="0.0" width="0.0" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BQL-0P-f6Q">
-                                                    <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
-                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BQL-0P-f6Q"/>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="44N-Zq-vWy">
-                                                    <rect key="frame" x="35" y="35" width="20" height="20"/>
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                         </view>
@@ -172,6 +166,7 @@
                                         <connections>
                                             <outlet property="imageView" destination="BQL-0P-f6Q" id="TZh-eg-Xj2"/>
                                             <outlet property="spinner" destination="44N-Zq-vWy" id="mLx-Em-soR"/>
+                                            <segue destination="HcH-Qg-N3j" kind="show" identifier="showRecentImage" id="h3C-fp-w5H"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -189,7 +184,6 @@
                     <tabBarItem key="tabBarItem" title="Recent" image="icons8-time-machine-100" id="FR9-HQ-83L"/>
                     <connections>
                         <outlet property="recentCollectionView" destination="whI-rL-7w7" id="Ftr-XL-zSZ"/>
-                        <segue destination="HcH-Qg-N3j" kind="show" identifier="showRecentImage" id="NUo-IA-g14"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyB-eP-K3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -222,6 +216,6 @@
         <image name="icons8-time-machine-100" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NUo-IA-g14"/>
+        <segue reference="h3C-fp-w5H"/>
     </inferredMetricsTieBreakers>
 </document>

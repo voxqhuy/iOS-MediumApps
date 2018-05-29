@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 // the result of downloading the image
 enum ImageResult {
@@ -27,6 +28,26 @@ enum PhotosResult {
 class PhotoStore {
     
     let imageStore = ImageStore()
+    
+    let persistentContainer: NSPersistentContainer = {
+        // name must match the data model file's name
+        let container = NSPersistentContainer(name: "Pictogram")
+        container.loadPersistentStores {
+            // due to the possibility of this operation taking sometime
+            // loading the persistent stores is an asynchronous operation
+            // that calls a completion handler when complete
+            (description, error) in
+            if let error = error {
+                print("Error setting up Core Data \(error)")
+            }
+        }
+        return container
+    } ()
+    
+}
+
+// Process photo data
+extension PhotoStore {
     
     // @escaping = the closure might not get called immediately within the method
     // this case it will call it when the web service request completes
@@ -66,7 +87,7 @@ class PhotoStore {
     
     private func processPhotosRequest(data: Data?, error: Error?) -> PhotosResult {
         guard let jsonData = data else { return .failure(error!) }
-        return FlickrAPI.photos(fromJSON: jsonData)
+        return FlickrAPI.photos(fromJSON: jsonData, into: persistentContainer.viewContext)
     }
 }
 
@@ -75,7 +96,9 @@ extension PhotoStore {
     // download image data
     func fetchImage(for photo: Photo, completion: @escaping (ImageResult) -> Void) {
         
-        let photoKey = photo.photoID
+        guard let photoKey = photo.photoID else {
+            preconditionFailure("Photo expected to have a photoID.")
+        }
         // Check if it is in the cache
         if let image = imageStore.getImage(forKey: photoKey) {
             // The main thread
@@ -85,8 +108,10 @@ extension PhotoStore {
             return
         }
         
-        let photoURL = photo.remoteURL
-        let request = URLRequest(url: photoURL)
+        guard let photoURL = photo.remoteURL else {
+            preconditionFailure("Photo expected to have a remote URL")
+        }
+        let request = URLRequest(url: photoURL as URL)
         
         URLSession.shared.dataTask(with: request) {
             (data, response, error) -> Void in
