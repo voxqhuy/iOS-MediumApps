@@ -22,19 +22,13 @@ class InterestingPhotosViewController: UIViewController {
         
         interestingCollectionView.dataSource = interestingDataSource
         interestingCollectionView.delegate = self
+        
+        updateDataSource()
         // kick off the web service
         photoStore.fetchInterestingPhotos {
             (photosResult) -> Void in
             
-            switch photosResult {
-            case let .success(photos):
-                print("Successfully found \(photos.count) photos.")
-                self.interestingDataSource.photos = photos
-            case let .failure(error):
-                print("Error fetching interesting photos: \(error)")
-                self.interestingDataSource.photos.removeAll()
-            }
-            self.interestingCollectionView.reloadSections(IndexSet(integer: 0))
+            self.updateDataSource()
         }
     }
     
@@ -56,6 +50,19 @@ class InterestingPhotosViewController: UIViewController {
     
     
     // MARK: - Private methods
+    
+    private func updateDataSource() {
+        photoStore.fetchAllPhotos {
+            (photosResult) in
+            switch photosResult {
+            case let .success(photos):
+                self.interestingDataSource.photos = photos
+            case .failure:
+                self.interestingDataSource.photos.removeAll()
+            }
+            self.interestingCollectionView.reloadSections(IndexSet(integer: 0))
+        }
+    }
 
 }
 

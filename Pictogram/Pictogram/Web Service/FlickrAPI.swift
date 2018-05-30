@@ -71,7 +71,6 @@ struct FlickrAPI {
     static func photos(fromJSON data: Data, into context: NSManagedObjectContext) -> PhotosResult {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-            print(jsonObject)
             guard
                 let jsonDictionary = jsonObject as? [AnyHashable:Any],
                 let photos = jsonDictionary["photos"] as? [String:Any],
@@ -114,7 +113,21 @@ struct FlickrAPI {
             // Dont have enough info to construct a photo
             return nil
         }
-        // insert new photo to the context
+        
+        // check whether there is an existing photo with a given ID before
+        // inserting a new one
+        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+        let predicate = NSPredicate(format: "\(#keyPath(Photo.photoID)) == \(photoID)")
+        fetchRequest.predicate = predicate
+        var fetchedPhotos: [Photo]?
+        context.performAndWait {
+            fetchedPhotos = try? fetchRequest.execute()
+        }
+        if let existingPhoto = fetchedPhotos?.first {
+            return existingPhoto
+        }
+        
+        // use context to insert new photo into the context
         var photo: Photo!
         // Synchronously performs a given block on the context's queue
         context.performAndWait {

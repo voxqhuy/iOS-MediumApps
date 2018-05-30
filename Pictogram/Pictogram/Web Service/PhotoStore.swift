@@ -44,6 +44,25 @@ class PhotoStore {
         return container
     } ()
     
+    
+    //: - Methods
+    func fetchAllPhotos (completion: @escaping (PhotosResult) -> Void) {
+        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+        // a sorting for photos
+        let sortByDateTaken = NSSortDescriptor(key: #keyPath(Photo.dateTaken), ascending: true)
+        fetchRequest.sortDescriptors = [sortByDateTaken]
+        
+        let viewContext = persistentContainer.viewContext
+        viewContext.perform {
+            do {
+                let allPhotos = try viewContext.fetch(fetchRequest)
+                completion(.success(allPhotos))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        
+    }
 }
 
 // Process photo data
@@ -60,7 +79,18 @@ extension PhotoStore {
             // a completion closure to call when the request finishes
             (data, response, error) in
             
-            let result = self.processPhotosRequest(data: data, error: error)
+            var result = self.processPhotosRequest(data: data, error: error)
+            
+            // save the changes to the context, after Photo entities have been
+            // inserted into the context
+            if case .success = result {
+                do {
+                    try self.persistentContainer.viewContext.save()
+                } catch let error {
+                    result = .failure(error)
+                }
+            }
+            
             OperationQueue.main.addOperation {
                 completion(result)
             }

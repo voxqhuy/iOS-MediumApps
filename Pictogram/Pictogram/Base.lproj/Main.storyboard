@@ -86,14 +86,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nRH-Nb-fCx">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                             </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1u-Tf-c1Y">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Tags" id="0Nf-if-Rhc"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="4It-CY-ooM" firstAttribute="bottom" secondItem="W1u-Tf-c1Y" secondAttribute="bottom" id="7Sy-CN-Zbj"/>
                             <constraint firstItem="nRH-Nb-fCx" firstAttribute="top" secondItem="4It-CY-ooM" secondAttribute="top" id="97c-Hd-33F"/>
-                            <constraint firstItem="4It-CY-ooM" firstAttribute="bottom" secondItem="nRH-Nb-fCx" secondAttribute="bottom" id="MuW-Kx-jXw"/>
+                            <constraint firstItem="W1u-Tf-c1Y" firstAttribute="leading" secondItem="4It-CY-ooM" secondAttribute="leading" id="VvK-9o-L4g"/>
+                            <constraint firstItem="W1u-Tf-c1Y" firstAttribute="top" secondItem="nRH-Nb-fCx" secondAttribute="bottom" id="bfq-l4-gWF"/>
                             <constraint firstItem="4It-CY-ooM" firstAttribute="trailing" secondItem="nRH-Nb-fCx" secondAttribute="trailing" id="dZb-lD-1Zb"/>
+                            <constraint firstItem="W1u-Tf-c1Y" firstAttribute="trailing" secondItem="4It-CY-ooM" secondAttribute="trailing" id="iN3-d2-Nqc"/>
                             <constraint firstItem="nRH-Nb-fCx" firstAttribute="leading" secondItem="4It-CY-ooM" secondAttribute="leading" id="ySP-Tm-XCx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4It-CY-ooM"/>

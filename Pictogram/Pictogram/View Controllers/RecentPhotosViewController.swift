@@ -23,18 +23,13 @@ class RecentPhotosViewController: UIViewController {
         recentCollectionView.dataSource = recentDataSource
         recentCollectionView.delegate = self
         
+        // load whatever the app has loaded currently
+        self.updateDataSource()
+        
         // Kick off the web service
         photoStore.fetchRecentPhotos() {
             (photosResult) in
-            switch photosResult {
-            case let .success(photos):
-                print("Successfully found \(photos.count) photos.")
-                self.recentDataSource.photos = photos
-            case let .failure(error):
-                print("Error fetching recent photos: \(error)")
-                self.recentDataSource.photos.removeAll()
-            }
-            self.recentCollectionView.reloadSections(IndexSet(integer: 0))
+            self.updateDataSource()
         }
     }
     
@@ -51,6 +46,20 @@ class RecentPhotosViewController: UIViewController {
             }
         default:
             print("Unexpected segue identifier")
+        }
+    }
+    
+    // MARK: - Private methods
+    private func updateDataSource() {
+        photoStore.fetchAllPhotos{
+            (photosResult) in
+            switch photosResult {
+            case let .success(photos):
+                self.recentDataSource.photos = photos
+            case .failure:
+                self.recentDataSource.photos.removeAll()
+            }
+            self.recentCollectionView.reloadSections(IndexSet(integer: 0))
         }
     }
 }
