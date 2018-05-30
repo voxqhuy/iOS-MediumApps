@@ -14,90 +14,95 @@ class TagsTableViewController: UITableViewController {
     // MARK: Properties
     var photoStore: PhotoStore!
     var photo: Photo!
-    
     var selectedIndexPaths = [IndexPath]()
+    let tagDataSource = TagDataSource()
     
+    // Outlets
 
+    // MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.dataSource = tagDataSource
+        tableView.delegate = self
+        
+        updateTags()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: Actions
+    
+    @IBAction func done(_ sender: Any) {
+        // presentingViewController = the view controller that presented this view
+        // dismiss the view that was presented modally
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    @IBAction func addNewTag(_ sender: Any) {
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    
+    // MARK: Private Methods
+    func updateTags() {
+        photoStore.fetchAllTags{
+            (tagsResult) in
+            switch tagsResult {
+            case let .success(tags):
+                self.tagDataSource.tags = tags
+                // the tags of the photo
+                guard let photoTags = self.photo.tags as? Set<Tag> else {
+                    return
+                }
+                // append each tag of the photo to the selectedIndexPaths
+                for tag in photoTags {
+                    if let index = self.tagDataSource.tags.index(of: tag) {
+                        let indexPath = IndexPath(row: index, section: 0)
+                        self.selectedIndexPaths.append(indexPath)
+                    }
+                }
+            case let .failure(error):
+                print("Error fetchting tags: \(error)")
+            }
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+extension TagsTableViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // the tag of the selected row
+        let tag = tagDataSource.tags[indexPath.row]
+        
+        // check if the tag is already assigned to the photo
+        if let index = selectedIndexPaths.index(of: indexPath) {
+            // remove the selected row
+            selectedIndexPaths.remove(at: index)
+            // remove the selected tag from the photo
+            photo.removeFromTags(tag)
+        } else {
+            // the tag is not assigned to the photo, assign it
+            selectedIndexPaths.append(indexPath)
+            photo.addToTags(tag)
+        }
+        
+        do {
+            // commit unsaved changes to the context
+            try photoStore.persistentContainer.viewContext.save()
+        } catch {
+            print("Core Data save failed: \(error)")
+        }
+        
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell,
+                            forRowAt indexPath: IndexPath) {
+        // check if the cell is selected
+        if selectedIndexPaths.index(of: indexPath) != nil {
+            // the cell has a checkmark on its right side
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+    }
+}
+
