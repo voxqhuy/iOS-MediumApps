@@ -12,6 +12,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var spinner: UIActivityIndicatorView!
+    
+    var photoDescription: String?
 }
 
 
@@ -26,6 +28,36 @@ extension PhotoCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         update(with: nil)
+    }
+}
+
+// MARK: - Accessibility
+extension PhotoCollectionViewCell {
+    
+    override var isAccessibilityElement: Bool {
+        get {
+            return true
+        }
+        set {
+            super.isAccessibilityElement = newValue
+        }
+    }
+    // VoiceOver
+    override var accessibilityLabel: String? {
+        get {
+            return photoDescription
+        }
+        set {
+            // Ignore attempts to set
+        }
+    }
+    override var accessibilityTraits: UIAccessibilityTraits {
+        get {
+            return super.accessibilityTraits | UIAccessibilityTraitImage
+        }
+        set {
+            // Ignore attempts to set
+        }
     }
 }
 

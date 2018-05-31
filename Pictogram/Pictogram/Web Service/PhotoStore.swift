@@ -66,6 +66,8 @@ class PhotoStore {
                 completion(.failure(error))
             }
         }
+        
+
     }
     
     func fetchAllTags(completion: @escaping (TagsResult) -> Void) {
@@ -99,21 +101,11 @@ extension PhotoStore {
             // a completion closure to call when the request finishes
             (data, response, error) in
             
-            var result = self.processPhotosRequest(data: data, error: error)
-            
-            // save the changes to the context, after Photo entities have been
-            // inserted into the context
-            if case .success = result {
-                do {
-                    try self.persistentContainer.viewContext.save()
-                } catch let error {
-                    result = .failure(error)
-                }
-            }
-            
-            OperationQueue.main.addOperation {
-                completion(result)
-            }
+            _ = self.processPhotosRequest(data: data, error: error) {
+                (result) in
+                OperationQueue.main.addOperation {
+                    completion(result)
+                }}
         }.resume()
         // tasks are always created in the suspended state, calling resume() will start the webservice request
     }
@@ -127,17 +119,47 @@ extension PhotoStore {
             // a completion closure to call when the request finishes
             (data, response, error) in
             
-            let result = self.processPhotosRequest(data: data, error: error)
-            OperationQueue.main.addOperation {
-                completion(result)
-            }
+            _ = self.processPhotosRequest(data: data, error: error) {
+                (result) in
+                OperationQueue.main.addOperation {
+                    completion(result)
+                }}
             }.resume()
         // tasks are always created in the suspended state, calling resume() will start the webservice request
     }
     
-    private func processPhotosRequest(data: Data?, error: Error?) -> PhotosResult {
-        guard let jsonData = data else { return .failure(error!) }
-        return FlickrAPI.photos(fromJSON: jsonData, into: persistentContainer.viewContext)
+    // run as a background task (asynchronous operation)
+    private func processPhotosRequest(data: Data?, error: Error?,
+                                      completion: @escaping (PhotosResult) -> Void ) {
+        guard let jsonData = data else {
+            completion(.failure(error!))
+            return
+        }
+        // background task
+        persistentContainer.performBackgroundTask { (context) in
+            // FlickrAPI will ingest JSON and convert to Photo instances
+            let result = FlickrAPI.photos(fromJSON: jsonData, into: context)
+            
+            do {
+                // save the context so that the insertions persist
+                try context.save()
+            } catch {
+                print("Error saving to Core Data: \(error)")
+                completion(.failure(error))
+                return
+            }
+            switch result {
+            case let .success(photos):
+                // NSManagedObject has objectID that is the same across different contexts
+                let photoIDs = photos.map { return $0.objectID }
+                let viewContext = self.persistentContainer.viewContext
+                // Use these ids to fetch the corresponding photo instances associated with the viewContext
+                let viewContextPhotos = photoIDs.map { return viewContext.object(with: $0)} as! [Photo]
+                completion(.success(viewContextPhotos))
+            case .failure:
+                completion(result)
+            }
+        }
     }
 }
 

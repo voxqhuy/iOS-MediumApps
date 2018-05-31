@@ -9,17 +9,19 @@
 import UIKit
 import CoreData
 
+// MARK: Properties
 class TagsTableViewController: UITableViewController {
-    
-    // MARK: Properties
+
     var photoStore: PhotoStore!
     var photo: Photo!
     var selectedIndexPaths = [IndexPath]()
     let tagDataSource = TagDataSource()
     
     // Outlets
+}
 
-    // MARK: View life cycle
+// MARK: - View life cycle
+extension TagsTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,9 +30,11 @@ class TagsTableViewController: UITableViewController {
         
         updateTags()
     }
-    
-    // MARK: Actions
-    
+}
+
+// MARK: - Actions
+extension TagsTableViewController {
+   
     @IBAction func done(_ sender: Any) {
         // presentingViewController = the view controller that presented this view
         // dismiss the view that was presented modally
@@ -38,10 +42,42 @@ class TagsTableViewController: UITableViewController {
     }
     
     @IBAction func addNewTag(_ sender: Any) {
+        let alertController = UIAlertController(title: "Add Tag", message: nil, preferredStyle: .alert)
+        
+        alertController.addTextField{
+            (textField) in
+            textField.placeholder = "tag name"
+            textField.autocapitalizationType = .words
+        }
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) {
+            (action) in
+            // insert a new tag into the contxt,save the context, update the list of tags, and reload the table view section
+            if let tagName = alertController.textFields?.first?.text {
+                let context = self.photoStore.persistentContainer.viewContext
+                // insert a new tag into entity "Tag"
+                let newTag = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context)
+                // set the properties
+                newTag.setValue(tagName, forKey: "name")
+                
+                do {
+                    // save the changes to the viewcontext in persistent container
+                    try self.photoStore.persistentContainer.viewContext.save()
+                } catch let error {
+                    print("Core Data save failed: \(error)")
+                }
+                self.updateTags()
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
-    
-    
-    // MARK: Private Methods
+}
+// MARK: - Private Methods
+extension TagsTableViewController {
     func updateTags() {
         photoStore.fetchAllTags{
             (tagsResult) in
@@ -62,11 +98,13 @@ class TagsTableViewController: UITableViewController {
             case let .failure(error):
                 print("Error fetchting tags: \(error)")
             }
+            // reload the table view section
             self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
         }
     }
 }
 
+// MARK: - TableViewController
 extension TagsTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // the tag of the selected row

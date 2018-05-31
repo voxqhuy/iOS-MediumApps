@@ -23,6 +23,8 @@ extension TagDataSource: UITableViewDataSource {
         let tag = tags[indexPath.row]
         cell.textLabel?.text = tag.name
         
+        cell.accessibilityHint = "Double tap to toggle selected"
+        
         return cell
     }
 }
