@@ -13,14 +13,15 @@ class ItemStore {
     var allItems = [Item]()
     // URL to write and read in the "Documents" directory
     let itemArchiveURL: URL = {
-        let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = documentsDirectories.first!
+        let documentDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        var documentDirectory = documentDirectories.first!
         return documentDirectory.appendingPathComponent("items.archive")
     }()
     
     // loading the allItems from archived files if they exist
     init() {
-        if let archivedItems = NSKeyedUnarchiver.unarchiveObject(withFile: itemArchiveURL.path) as? [Item] {
+        if let archivedItems =
+            NSKeyedUnarchiver.unarchiveObject(withFile: itemArchiveURL.path) as? [Item] {
             allItems = archivedItems
         }
     }
@@ -65,10 +66,6 @@ class ItemStore {
     
     // saving the items to the filesystem
     func saveChanges() -> Bool {
-        print("Saving items to: \(itemArchiveURL.path)")
-        // archiveRootObject: saving every signle Item in allItems to itemArchiveURL
         return NSKeyedArchiver.archiveRootObject(allItems, toFile: itemArchiveURL.path)
-        // encode(with:) is called on all objects allItems contains, passing NSKeyedArchiver
-        // then all the Item's variables is encoded into the same NSKeyedArchiver
     }
 }

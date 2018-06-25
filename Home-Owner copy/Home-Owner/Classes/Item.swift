@@ -61,22 +61,21 @@ class Item: NSObject, NSCoding {
     // encode all names and all properties
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: "name")
-        aCoder.encode(dateCreated, forKey: "dateCreated")
-        aCoder.encode(itemKey, forKey: "itemKey")
-        aCoder.encode(serialNumber, forKey: "serialNumber")
         aCoder.encode(valueInDollars, forKey: "valueInDollars")
+        aCoder.encode(serialNumber, forKey: "serialNumber")
+        aCoder.encode(dateCreated, forKey: "dateCreated")
         aCoder.encode(textColor, forKey: "textColor")
+        aCoder.encode(itemKey, forKey: "itemKey")
     }
     
     // decode
     required init?(coder aDecoder: NSCoder) {
         name = aDecoder.decodeObject(forKey: "name") as! String
-        dateCreated = aDecoder.decodeObject(forKey: "dateCreated") as! Date
-        itemKey = aDecoder.decodeObject(forKey: "itemKey") as! String
-        serialNumber = aDecoder.decodeObject(forKey: "serialNumber") as! String?
         valueInDollars = aDecoder.decodeDouble(forKey: "valueInDollars")
+        serialNumber = aDecoder.decodeObject(forKey: "serialNumber") as? String
+        dateCreated = aDecoder.decodeObject(forKey: "dateCreated") as! Date
         textColor = aDecoder.decodeObject(forKey: "textColor") as! UIColor
-        
+        itemKey = aDecoder.decodeObject(forKey: "itemKey") as! String
         super.init()
     }
 }

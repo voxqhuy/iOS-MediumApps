@@ -66,8 +66,6 @@ class PhotoStore {
                 completion(.failure(error))
             }
         }
-        
-
     }
     
     func fetchAllTags(completion: @escaping (TagsResult) -> Void) {

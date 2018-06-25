@@ -47,21 +47,34 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // If the triggered segue is "ShowItem" segue
         switch segue.identifier {
-        case "showItem"?:
-            // Figure which row was tapped
+        case "showItem":
             if let row = tableView.indexPathForSelectedRow?.row {
-                // get the item associated with this row and pass it along
                 let item = itemStore.allItems[row]
                 let detailViewController = segue.destination as! DetailViewController
-                detailViewController.item = item
                 detailViewController.imageStore = imageStore
+                detailViewController.item = item
             }
         default:
-            preconditionFailure("Unexpected segue identifier.")
+            preconditionFailure("Unexpected Segue idenfier")
         }
     }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // If the triggered segue is "ShowItem" segue
+//        switch segue.identifier {
+//        case "showItem"?:
+//            // Figure which row was tapped
+//            if let row = tableView.indexPathForSelectedRow?.row {
+//                // get the item associated with this row and pass it along
+//                let item = itemStore.allItems[row]
+//                let detailViewController = segue.destination as! DetailViewController
+//                detailViewController.item = item
+//                detailViewController.imageStore = imageStore
+//            }
+//        default:
+//            preconditionFailure("Unexpected segue identifier.")
+//        }
+//    }
     
     @IBAction func addNewItem(_ sender: UIBarButtonItem) {
         // Create a new item and add it to the store
@@ -175,7 +188,7 @@ class ItemsViewController: UITableViewController, UITextFieldDelegate {
                 self.itemStore.removeItem(item)
                 
                 // Remove the item's image from the image store
-                self.imageStore.deleteImage(forKey: item.itemKey)
+                self.imageStore.removeImage(forKey: item.itemKey)
                 
                 // remove the row from the table view
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
