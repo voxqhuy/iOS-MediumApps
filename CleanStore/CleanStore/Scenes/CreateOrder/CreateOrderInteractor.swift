@@ -23,7 +23,7 @@ class CreateOrderInteractor: CreateOrderBusinessLogic, CreateOrderDataStore
 {
     var presenter: CreateOrderPresentationLogic?
     var worker: CreateOrderWorker?
-    //var name: String = ""
+    var shippingMethods: [String]?
     
     // MARK: Do something
     

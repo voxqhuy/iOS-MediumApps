@@ -69,8 +69,8 @@ class CreateOrderViewController: UITableViewController, CreateOrderDisplayLogic
         for textField in textFields {
             textField.delegate = self
         }
-        shippingMethodPicker.delegate = self as? UIPickerViewDelegate
-        shippingMethodPicker.dataSource = self as? UIPickerViewDataSource
+        shippingMethodPicker.delegate = self
+        shippingMethodPicker.dataSource = self
         
         configurePickers()
     }
@@ -144,7 +144,15 @@ extension CreateOrderViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        interactor.
+        return interactor?.shippingMethods.count ?? 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return interactor?.shippingMethods[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        shippingMethodTextFeld.text = interactor?.shippingMethods[row0]
     }
     
     
