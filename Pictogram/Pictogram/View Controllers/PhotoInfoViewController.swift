@@ -28,7 +28,6 @@ extension PhotoInfoViewController {
         
         imageView.accessibilityLabel = photo.title
 
-
         store.fetchImage(for: photo) {
             (result) in
             switch result {

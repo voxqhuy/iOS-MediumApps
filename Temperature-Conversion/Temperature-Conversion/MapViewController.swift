@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     let vinhAnnotation = Artwork(title: "My hometown", locationName: "Vinh city", discipline: "City", coordinate: CLLocationCoordinate2D(latitude: 18.6796, longitude: 105.6813))
     let phuketAnnotation = Artwork(title: "A place I visitted", locationName: "Phuket Island", discipline: "Island", coordinate: CLLocationCoordinate2D(latitude: 7.9519, longitude: 98.3381))
     let sauAnnotation = Artwork(title: "My workplace", locationName: "Collegedale city", discipline: "Work", coordinate: CLLocationCoordinate2D(latitude: 35.0531, longitude: -85.0502))
-    let sang = Artwork(title: "Nơi Kitty Ị", locationName: "Quan Hoa", discipline: "Fun", coordinate: CLLocationCoordinate2D(latitude: 21.0364, longitude: 105.8045))
+    let hanoi = Artwork(title: "ba", locationName: "Quan Hoa", discipline: "Fun", coordinate: CLLocationCoordinate2D(latitude: 21.0364, longitude: 105.8045))
     
     override func loadView() {
         // Create a map view
@@ -27,7 +27,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.addAnnotation(vinhAnnotation)
         mapView.addAnnotation(phuketAnnotation)
         mapView.addAnnotation(sauAnnotation)
-        mapView.addAnnotation(sang)
+        mapView.addAnnotation(hanoi)
         locationManager = CLLocationManager()
         
         // Set it as the view of this view controller
