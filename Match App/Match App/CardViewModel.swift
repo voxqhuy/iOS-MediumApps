@@ -9,22 +9,23 @@
 import Foundation
 
 class CardViewModel {
-    func getCards() -> [Card] {
-        
-        var cardsBank = [Card]()
-        
-        for _ in 1...8 {
-            
-            let randomNumber = arc4random_uniform(13) + 1
-            
-            var cardOne = Card()
-            cardOne.imageName = "card\(randomNumber)"
-            
-            let cardTwo = Card()
-            cardTwo.imageName = "card\(randomNumber)"
-            
-            cardsBank.append(cardOne)
-            cardsBank.append(cardTwo)
-        }
+    
+    private let card: Card
+    
+    init(card: Card) {
+        self.card = card
     }
+    
+    public var isFlipped: Bool {
+        return card.isFlipped
+    }
+    
+    public var imageName: String {
+        return "card\(card.imageNumber)"
+    }
+    
+    public func flipCard() {
+        card.isFlipped = !card.isFlipped
+    }
+    
 }

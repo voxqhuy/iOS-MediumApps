@@ -31,7 +31,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="eeu-hw-wU1">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="eeu-hw-wU1" customClass="CardCollectionViewCell" customModule="Match_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="158" height="224"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -56,6 +56,10 @@
                                             <constraint firstAttribute="bottom" secondItem="fPf-IO-KOn" secondAttribute="bottom" id="rVq-ky-xee"/>
                                             <constraint firstAttribute="bottom" secondItem="I7T-bp-fkM" secondAttribute="bottom" id="tFG-MJ-KcW"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="backImageView" destination="fPf-IO-KOn" id="Ph6-y9-jP8"/>
+                                            <outlet property="frontImageView" destination="I7T-bp-fkM" id="NEK-63-YcE"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -73,6 +77,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="cardCollectionView" destination="W5C-RU-oxu" id="zi7-dO-p94"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -14,6 +14,8 @@
 		DEE5465A21DBEB6E00CFB519 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEE5465821DBEB6E00CFB519 /* LaunchScreen.storyboard */; };
 		DEE5466221DC086E00CFB519 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5466121DC086E00CFB519 /* Card.swift */; };
 		DEE5466421DC15A400CFB519 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5466321DC15A400CFB519 /* CardViewModel.swift */; };
+		DEE5466621DC1D9B00CFB519 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5466521DC1D9B00CFB519 /* CardCollectionViewCell.swift */; };
+		DEE5466821DC615000CFB519 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5466721DC615000CFB519 /* DataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		DEE5465B21DBEB6E00CFB519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEE5466121DC086E00CFB519 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DEE5466321DC15A400CFB519 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		DEE5466521DC1D9B00CFB519 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		DEE5466721DC615000CFB519 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				DEE5465B21DBEB6E00CFB519 /* Info.plist */,
 				DEE5466121DC086E00CFB519 /* Card.swift */,
 				DEE5466321DC15A400CFB519 /* CardViewModel.swift */,
+				DEE5466521DC1D9B00CFB519 /* CardCollectionViewCell.swift */,
+				DEE5466721DC615000CFB519 /* DataService.swift */,
 			);
 			path = "Match App";
 			sourceTree = "<group>";
@@ -144,6 +150,8 @@
 				DEE5466421DC15A400CFB519 /* CardViewModel.swift in Sources */,
 				DEE5465221DBEB6D00CFB519 /* ViewController.swift in Sources */,
 				DEE5466221DC086E00CFB519 /* Card.swift in Sources */,
+				DEE5466821DC615000CFB519 /* DataService.swift in Sources */,
+				DEE5466621DC1D9B00CFB519 /* CardCollectionViewCell.swift in Sources */,
 				DEE5465021DBEB6D00CFB519 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

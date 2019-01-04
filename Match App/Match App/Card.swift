@@ -10,9 +10,12 @@ import Foundation
 
 class Card {
     
-    var imageName = ""
+    var imageNumber: Int
     var isFlipped = false
     var isMatched = false
     
+    init(ofNumber number: Int) {
+        imageNumber = number
+    }
 
 }
